@@ -3,6 +3,8 @@ $(document).ready(function() {
 
 })
 
+alasql.options.cache = true;
+
 function getWords(number, limit) {
 
   var intNumber = parseInt(number)
