@@ -1,6 +1,6 @@
 var cacheName = 'memcoder';
 var filesToCache = [
-  '/'
+  '/',
   '/css/main.css',
   '/index.html',
   '/words.csv',
