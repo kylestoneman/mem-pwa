@@ -1,5 +1,5 @@
 ---
-title: 'PWA'
+title: 'Memcoder PWA'
 layout: test.html
 ---
 
