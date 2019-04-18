@@ -1,6 +1,6 @@
 {
-    "name": "PWA Test",
-    "short_name": "pwa-test",
+    "name": "Memcoder",
+    "short_name": "memcoder-1",
     "icons": [
         {
             "src": "/images/icons/android-chrome-192x192.png",
