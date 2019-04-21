@@ -4,17 +4,10 @@ $(document).ready(function() {
   initDB()
 
   // If they change the value in the input get new words
-  $("#number").on('change keydown paste input', function(){
+  $("#number").on('change paste input', function(){
     getWords($(this).val());
-    console.log($(this).val())
   });
 
-  // If they hit the delete key on the page, check the words
-  $('html').keyup(function(e){
-      if(e.keyCode == 46) {
-        getWords($("#number").val());
-      }
-  });
 
 })
 
@@ -26,7 +19,7 @@ function initDB() {
   alasql('CREATE INDEXEDDB DATABASE IF NOT EXISTS words;\
         ATTACH INDEXEDDB DATABASE words; \
         DROP TABLE IF EXISTS words; \
-        CREATE TABLE words(word TEXT, number VARCHAR(33), length INTEGER); \
+        CREATE TABLE words(word, number, length); \
         SELECT * INTO words FROM CSV("/words.csv")');
 
 }
@@ -55,24 +48,20 @@ function getWords(number) {
     var thisNumber = allNumbers[i].spreadNumber
     var thisOffset = allNumbers[i].offset
 
-    console.log(thisNumber)
+    var queryNumber = "z" + thisNumber
+    var query = 'SELECT word,number,length,'+ thisNumber +' AS targetNumber,'+ thisOffset +' AS targetOffset FROM words WHERE number="' + queryNumber + '" LIMIT 15'
 
     // Get word, the number (cast as a string so it includes the leading zeros),
     // The expected length, our input number, and the offset (this is for ease of piecing things together later)
     // From the word list stored in IndexedDB where the number matches what we're looking for
-    alasql(['SELECT word,number,length,'+ thisNumber +' AS targetNumber,'+ thisOffset +' AS targetOffset FROM words WHERE number='+ thisNumber.toString() + ' LIMIT 15'])
+    alasql([query])
       .then(function(res){
 
         var counter = 0;
 
         for (i = 0; i < res[0].length; i++) { 
 
-          // If the length of the word is what we're expecting, display it
-          // This prevents issues with leading zeros and bad db formats
-          if (res[0][i].targetNumber.toString().length == res[0][i].length) {
-            $("#words").append("<li onClick='toggleSelected(this)' data-encoded='"+ res[0][i].length +"' class='span-"+ res[0][i].length +" offset-"+ res[0][i].targetOffset +"'>" + res[0][i].word + "</li>")
-            counter++
-          }
+            $("#words").append("<li onClick='toggleSelected(this)' data-offset="+res[0][i].targetOffset+" data-encoded='"+ res[0][i].length +"' class='span-"+ res[0][i].length +" offset-"+ res[0][i].targetOffset +"'>" + res[0][i].word + "</li>")
 
           // If this is the last word in the set of results
           if( i == (res[0].length - 1)) { 
@@ -80,15 +69,15 @@ function getWords(number) {
             // Sort the whole list
             sortList()
 
-            console.log(counter)
 
             // If there are 15 results, we'll assume there are more
             // To-do: Actually check if there are more than 15
-            if (counter == 14) {
-              $("#words").append("<li onClick='toggleSelected(this)' data-encoded='"+ (res[0][i].length) +"' class='more span-"+ res[0][i].length +" offset-"+ res[0][i].targetOffset +"'>+ MORE</li>")
+            if (i == 14) {
+              $("#words").append("<li onClick='addWords(this)' data-offset="+res[0][i].targetOffset+" data-value="+ res[0][i].targetNumber +" data-encoded='"+ (res[0][i].length) +"' class='more span-"+ res[0][i].length +" offset-"+ res[0][i].targetOffset +"'>+ MORE</li>")
             }
 
           }
+
         }
 
       }).catch(function(err){
@@ -100,12 +89,48 @@ function getWords(number) {
 
 }
 
+function addWords(target) {
+
+  // Get the class/offset combination we're dealing with
+  // Then add a `remove` class to all the original results
+  var classes = $(target).attr('class')
+    classes = classes.replace("more ", "");
+    var targetClasses = "." + classes.replace(" ", ".");
+    $(targetClasses).addClass("remove")
+
+  // Get the number and offset
+  var thisNumber = $(target).data('value')
+  var thisOffset = $(target).data('offset')
+
+  // Build the query
+  var queryNumber = "z" + thisNumber
+  var query = 'SELECT word,number,length,'+ thisNumber +' AS targetNumber,'+ thisOffset +' AS targetOffset FROM words WHERE number="' + queryNumber + '";'
+
+  // Look up all the results for this number
+  alasql([query])
+      .then(function(res){
+        console.log(res)
+        for (i = 0; i < res[0].length; i++) { 
+          $("#words").append("<li onClick='toggleSelected(this)' data-offset="+res[0][i].targetOffset+" data-encoded='"+ res[0][i].length +"' class='span-"+ res[0][i].length +" offset-"+ res[0][i].targetOffset +"'>" + res[0][i].word + "</li>")
+        }
+        sortList()
+      }).catch(function(err){
+        // Or whoops
+        console.log('Error:', err);
+      });
+  // Remove all the original results flagged for removal
+  $(".remove").remove()
+}
 
 function sortList() {
   var wordList = $("#words li");
 
   wordList.sort(function(a,b) {
-    return $(b).attr("data-encoded")-$(a).attr("data-encoded")
+    if ($(b).attr("data-encoded") == $(a).attr("data-encoded")) {
+      return $(b).attr("data-offset")-$(a).attr("data-offset")
+    } else {
+      return $(b).attr("data-encoded")-$(a).attr("data-encoded")
+    }
   })
 
   $("#words").html(wordList);
