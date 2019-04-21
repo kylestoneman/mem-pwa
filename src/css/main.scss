@@ -21,15 +21,15 @@ h1 {
   margin: 0;
   padding: 0;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   background: #03256C;
-  padding: 1rem 5vw;
+  padding: 2rem;
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 0.4rem;
   position: fixed;
   width: 100%;
-  top: 0;
+  bottom: 0;
   left: 0;
 }
 
@@ -60,7 +60,7 @@ input {
   padding: 1vw 3vw 1vw 4.5vw;
   position: fixed;
   z-index: 3;
-  margin: 4rem 0 0;
+  margin: 1rem 0 0;
 
   &::placeholder {
     color: rgba(#fff, 0.3);
@@ -72,7 +72,7 @@ input {
 
 #encoded {
   list-style: none;
-  padding: calc(11vw + 4rem) 0 0 3vw;
+  padding: calc(11vw + 1rem) 0 0 3vw;
   position: fixed;
   box-sizing: border-box;
   display: flex;
@@ -89,7 +89,7 @@ input {
 
 #words {
   margin: 0;
-  padding: calc(14vw + 6rem) 3vw 3vw;
+  padding: calc(14vw + 3rem) 3vw 3vw;
   list-style: none;
   text-align: center;
   display: flex;
