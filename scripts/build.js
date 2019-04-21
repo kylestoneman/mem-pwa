@@ -1,17 +1,14 @@
-const metalsmith = require('metalsmith');
-const msIf = require('metalsmith-if');
 const browserSync = require('metalsmith-browser-sync');
 const inplace = require('metalsmith-in-place');
+const handlebars = require('handlebars');
 const htmlMinifier = require("metalsmith-html-minifier");
 const layouts = require('metalsmith-layouts');
-const markdown = require('metalsmith-markdown');
 const metadata = require('metalsmith-metadata');
+const metalsmith = require('metalsmith');
+const msIf = require('metalsmith-if');
 const permalinks = require('metalsmith-permalinks');
 const postcss = require('metalsmith-postcss');
 const sass = require('metalsmith-sass');
-
-const handlebars = require('handlebars');
-const helpers = require('./handlebars-helpers');
 
 const shouldServe = process.env.SERVE === 'true';
 const watch = process.env.WATCH === 'true';
@@ -35,16 +32,12 @@ if (watch) {
   browserSyncOpts.files = ['src/**/*', 'layouts/**/*', 'partials/**/*']
 }
 
-// Register helpers
-// See ./handlebars-helpers.js for docs
-handlebars.registerHelper(helpers);
-
 metalsmith(__dirname)
   .source('../src')
   .destination('../build')
   .metadata({
     site: {
-      url: ''
+      url: 'memcoder.com'
     }
   })
   .use(sass({
@@ -76,7 +69,6 @@ metalsmith(__dirname)
       partials: '../src/css'
     })
   )
-  .use(markdown())
   .use(
     layouts({
       engine: 'handlebars',
@@ -91,7 +83,6 @@ metalsmith(__dirname)
       relative: false
     })
   )
-  .ignore('**/first-paint.css')
   .use(htmlMinifier(minifierOpts))
   .use(
     msIf(

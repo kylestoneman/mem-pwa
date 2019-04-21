@@ -1,4 +1,4 @@
-# Progressive Web App
+# Memcoder Progressive Web App
 
 This site uses [metalsmith](http://www.metalsmith.io/) to build a static website.
 
@@ -16,11 +16,8 @@ Commits to the `master` branch trigger automatic deploys in [Netlify](https://ne
 
 The site can easily be connected into other build tools by replicating the process described in the Deploying section, or by adding a `release` command to `package.json` that builds the site and then uses `scp` to put the latest version in place.
 
-## What are we using Metalsmith to do?
+## What am I using Metalsmith to do?
 
-We're using Metalsmith as a lightweight CMS. It can let us expand the site in the future easily. More importantly, in the short term it gets us some nice things:
-
-* Markdown
 * CSS prefixing
 * HTML partials & templates
 * Local development server
