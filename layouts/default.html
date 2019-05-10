@@ -7,24 +7,38 @@
 </head>
 <body>
 
-  <h1>{{ title }}</h1>
-        
-  <input type='tel' maxlength="10" id="number" placeholder="1234567890">
+  <input type='tel' autofocus maxlength="10" id="number" placeholder="1234567890">
   <ul id="encoded">
-    <li>t</li>
-    <li>n</li>
-    <li>m</li>
-    <li>r</li>
-    <li>l</li>
-    <li>j</li>
-    <li>k</li>
-    <li>f</li>
-    <li>p</li>
-    <li>z</li>
+    <li>T</li>
+    <li>N</li>
+    <li>M</li>
+    <li>R</li>
+    <li>L</li>
+    <li>J</li>
+    <li>K</li>
+    <li>F</li>
+    <li>P</li>
+    <li>Z</li>
   </ul>
   <ul id="words">
-    
   </ul>
+
+  <nav>
+    <h1>Memcoder 2.0</h1>
+    <section class="expanded">
+
+      <p>Memcoder is a <a target="_blank" rel="noopener" href="https://artofmemory.com/wiki/Major_System">Major System</a> encoder by <a href="https://kyle.st" target="_blank" rel="noopener">Kyle Stoneman</a>. This is the second version. It is powered by a phonetic database created by <a href="http://www.speech.cs.cmu.edu/cgi-bin/cmudict" target="_blank" rel="noopener">Carnegie Mellon University</a>.</p>
+
+      <p>Be aware: Regional pronunciations <strong><u>may not match your pronunciation</u></strong>. Please confirm words match your desired phonetics.</p>
+
+      <div class="pwa-instructions">
+        <h2>Memcoder works on the Moon!</h2>
+        <p>Download as an app to your mobile phone for full functionality without an internet connection. Select <strong>"Add to Home Screen"</strong> on iPhones, or accept the prompt on Androids.</p>
+      </div>
+
+    </section>
+  </nav>
+        
 
   {{> scripts }}
 

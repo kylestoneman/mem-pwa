@@ -8,6 +8,10 @@ $(document).ready(function() {
     populateWords($(this).val());
   });
 
+  $("nav h1").click(function() {
+    $('nav').toggleClass('active')
+  })
+
 })
 
 function initDB() {
@@ -71,7 +75,7 @@ function populateWords(number) {
 
           // If there are 16 results, we'll assume there are more
           if (i == 15) {
-            $("#words").append("<li onClick='addWords(this)' data-offset="+res[0][i].targetOffset+" data-value="+ res[0][i].number.replace("z", "") +" data-encoded='"+ (res[0][i].length) +"' class='more span-"+ res[0][i].length +" offset-"+ res[0][i].targetOffset +"'>+ MORE</li>")
+            $("#words").append("<li onClick='addWords(this)' data-offset="+res[0][i].targetOffset+" data-value="+ res[0][i].number.replace("z", "") +" data-encoded='"+ (res[0][i].length) +"' class='more span-"+ res[0][i].length +" offset-"+ res[0][i].targetOffset +"'>more</li>")
           }
         }
       }
@@ -203,34 +207,34 @@ function encodeNumber(number) {
 
   switch(number) {
     case '0':
-      return 's';
+      return 'S';
       break;
     case '1':
-      return 't';
+      return 'T';
       break;
     case '2':
-      return 'n';
+      return 'N';
       break;
     case '3':
-      return 'm';
+      return 'M';
       break;
     case '4':
-      return 'r';
+      return 'R';
       break;
     case '5':
-      return 'l';
+      return 'L';
       break;
     case '6':
-      return 'j';
+      return 'J';
       break;
     case '7':
-      return 'k';
+      return 'K';
       break;
     case '8':
-      return 'f';
+      return 'F';
       break;
     case '9':
-      return 'p';
+      return 'P';
       break;
     default:
       return 'Error: supply number 0-9'
