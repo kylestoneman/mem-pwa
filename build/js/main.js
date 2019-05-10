@@ -5,10 +5,18 @@ $(document).ready(function() {
 
   // If they change the value in the input get new words
   $("#number").on('change paste input', function(){
+
     populateWords($(this).val());
+    gtag('event', 'Lookup', {'value' : $(this).val().length });
+
   });
 
   $("nav h1").click(function() {
+
+    if (!$("nav").hasClass('active')) {
+      gtag('event', 'Nav');
+    }
+
     $('nav').toggleClass('active')
   })
 
@@ -120,6 +128,9 @@ function addWords(target) {
 
   // Remove all the original results flagged for removal
   $(".remove").remove()
+
+  // Log event in GA
+  tag('event', 'More');
 }
 
 function sortList() {
@@ -149,6 +160,7 @@ function toggleSelected(e) {
   // which highlights and pins the word
 
   $(e).toggleClass('selected')
+  tag('event', 'Select', {'value' : $(e).html() });
 }
 
 
