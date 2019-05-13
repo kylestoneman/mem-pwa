@@ -3,6 +3,12 @@ $(document).ready(function() {
   // Load data into IndexDB
   initDB()
 
+
+  // If they change the value in the input get new words
+  $("#number").on('change paste input', function(){
+    populateEncoding($(this).val())
+  })
+
   // Toggle the navigation visibility
   $("nav h1").click(function() {
     $('nav').toggleClass('active')
@@ -24,9 +30,6 @@ var debouncedKeys = debounce(function() {
   if (text) {
     $("body").addClass('loading')
   }
-
-  // Map the number to encoded sounds
-  populateEncoding(text)
 
   // SetTimeout so the user can keep entering numbers
   setTimeout(function(){
