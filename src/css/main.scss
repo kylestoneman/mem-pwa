@@ -5,6 +5,19 @@ html {
 body {
   background: #D8DBE2;
   min-height: 100vh;
+
+  &.loading::after {
+    content: "Loading...";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5vw;
+    background: rgba(#fff, 0.5);
+    border-radius: 5px;
+    padding: 1rem;
+    color: #373F51;
+  }
 }
 
 ::-moz-selection {

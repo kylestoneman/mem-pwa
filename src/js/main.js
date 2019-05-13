@@ -5,7 +5,12 @@ $(document).ready(function() {
 
   // If they change the value in the input get new words
   $("#number").on('change paste input', function(){
+
     let text = $(this).val();
+
+    if (text) {
+      $("body").addClass('loading')
+    }
 
     // Map the number to encoded sounds
     populateEncoding(text)
@@ -86,6 +91,7 @@ function populateWords(number) {
 
           // Sort the list
           sortList()
+          $("body").removeClass('loading')
 
           // If there are 16 results, we'll assume there are more
           if (i == 15) {
