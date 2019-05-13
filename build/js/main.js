@@ -5,10 +5,16 @@ $(document).ready(function() {
 
   // If they change the value in the input get new words
   $("#number").on('change paste input', function(){
+    let text = $(this).val();
 
-    populateWords($(this).val());
-    gtag('event', 'Lookup', {'value' : $(this).val().length });
+    // Map the number to encoded sounds
+    populateEncoding(text)
 
+    // SetTimeout so the user can keep entering numbers
+    setTimeout(function(){
+      populateWords(text);
+      gtag('event', 'Lookup', {'value' : text.length });
+    });
   });
 
   $("nav h1").click(function() {
