@@ -3,35 +3,44 @@ $(document).ready(function() {
   // Load data into IndexDB
   initDB()
 
-  // If they change the value in the input get new words
-  $("#number").on('change paste input', function(){
-
-    let text = $(this).val();
-
-    if (text) {
-      $("body").addClass('loading')
-    }
-
-    // Map the number to encoded sounds
-    populateEncoding(text)
-
-    // SetTimeout so the user can keep entering numbers
-    setTimeout(function(){
-      populateWords(text);
-      gtag('event', 'Lookup', {'value' : text.length });
-    });
-  });
-
+  // Toggle the navigation visibility
   $("nav h1").click(function() {
-
+    $('nav').toggleClass('active')
     if (!$("nav").hasClass('active')) {
       gtag('event', 'Nav');
     }
-
-    $('nav').toggleClass('active')
   })
 
 })
+
+// This processes the input when it is changed
+var debouncedKeys = debounce(function() {
+
+  // Get the current value
+  let text = $("#number").val();
+
+  // If it's anything other than nothing, add a loading
+  // class to the body, that we'll remove when we're done loading
+  if (text) {
+    $("body").addClass('loading')
+  }
+
+  // Map the number to encoded sounds
+  populateEncoding(text)
+
+  // SetTimeout so the user can keep entering numbers
+  setTimeout(function(){
+    populateWords(text);
+    gtag('event', 'Lookup', {'value' : text.length });
+  });
+
+}, 250);
+
+// Add our function to input, paste, and delete
+window.addEventListener('input', debouncedKeys);
+window.addEventListener('paste', debouncedKeys);
+window.addEventListener('delete', debouncedKeys);
+
 
 function initDB() {
 // Make an indexeddb database and load it up
@@ -264,3 +273,23 @@ function encodeNumber(number) {
       return 'Error: supply number 0-9'
   }
 }
+
+// FROM https://davidwalsh.name/javascript-debounce-function
+// Returns a function, that, as long as it continues to be invoked, will not
+// be triggered. The function will be called after it stops being called for
+// N milliseconds. If `immediate` is passed, trigger the function on the
+// leading edge, instead of the trailing.
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function() {
+    var context = this, args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};

@@ -5,7 +5,7 @@ var filesToCache = [
   '/css/main.css',
   '/index.html',
   '/words.csv',
-  '/js/main.js',
+  // '/js/main.js',
   '/js/jquery-3.2.1.min.js',
   '/js/alasql.js'
 ];
