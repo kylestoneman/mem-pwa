@@ -196,7 +196,7 @@ function populateEncoding(number) {
   $("#encoded").html('')
 
   var output = []
-  var sNumber = number.toString() || '1234567890';
+  var sNumber = number.toString() || '12345678901';
 
   for (var i = 0, len = sNumber.length; i < len; i += 1) {
       // Slice up the number into individual digits

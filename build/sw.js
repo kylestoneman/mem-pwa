@@ -1,20 +1,18 @@
 var cacheName = 'memcoder';
 var filesToCache = [
   '/',
-  '/css/normalize.css',
-  '/css/main.css',
-  '/index.html',
-  '/words.csv',
-  '/js/main.js',
-  '/js/jquery-3.2.1.min.js',
-  '/js/alasql.js'
+  '/css/normalize.css?1',
+  '/css/main.css?1',
+  '/index.html?1',
+  '/words.csv?1',
+  '/js/main.js?1',
+  '/js/jquery-3.2.1.min.js?1',
+  '/js/alasql.js?1'
 ];
 
 self.addEventListener('install', function(e) {
-  console.log('[ServiceWorker] Install');
   e.waitUntil(
     caches.open(cacheName).then(function(cache) {
-      console.log('[ServiceWorker] Caching app shell');
       return cache.addAll(filesToCache);
     })
   );
