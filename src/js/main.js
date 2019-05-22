@@ -37,7 +37,7 @@ var debouncedKeys = debounce(function() {
     gtag('event', 'Lookup', {'value' : text.length });
   });
 
-}, 250);
+}, 150);
 
 // Add our function to input, paste, and delete
 window.addEventListener('input', debouncedKeys);
@@ -198,6 +198,8 @@ function populateEncoding(number) {
   var output = []
   var sNumber = number.toString() || '12345678901';
 
+  (!number.toString()) ? $("#instructions").show() : $("#instructions").hide();
+
   for (var i = 0, len = sNumber.length; i < len; i += 1) {
       // Slice up the number into individual digits
       // And add an <li> with the encoded equivalent
@@ -282,6 +284,7 @@ function encodeNumber(number) {
 // be triggered. The function will be called after it stops being called for
 // N milliseconds. If `immediate` is passed, trigger the function on the
 // leading edge, instead of the trailing.
+
 function debounce(func, wait, immediate) {
   var timeout;
   return function() {

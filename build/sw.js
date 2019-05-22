@@ -2,10 +2,10 @@ var cacheName = 'memcoder';
 var filesToCache = [
   '/',
   '/css/normalize.css?1',
-  '/css/main.css?1',
-  '/index.html?1',
+  '/css/main.css?2',
+  '/index.html?2',
   '/words.csv?1',
-  '/js/main.js?1',
+  '/js/main.js?2',
   '/js/jquery-3.2.1.min.js?1',
   '/js/alasql.js?1'
 ];

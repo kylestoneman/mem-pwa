@@ -141,6 +141,46 @@ nav {
   }
 }
 
+#instructions {
+  position: absolute;
+  text-align: center;
+  top: calc(15vw + 5.6rem);
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 84.5vw;
+  box-sizing: border-box;
+  width: max-content;
+  background: #58A4B0;
+  color: lighten(#58A4B0, 33);
+  padding: calc(2vw + 1rem);
+  border-radius: 2vw;
+  line-height: 1.618;
+  font-size: 1rem;
+  font-weight: 400;
+  box-shadow: 0 19px 38px rgba(#373F51,0.30), 0 15px 12px rgba(#373F51,0.22);
+
+  strong {
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  &::before {
+    content: "";
+    width: 0rem;
+    height: 0.5rem;
+    border: 2rem solid #58A4B0;
+    border-color : transparent transparent #58A4B0 transparent;
+    position: absolute;
+    top: -4rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.nobr {
+  white-space: nowrap;
+}
+
 @media (display-mode: standalone) {
 
   .pwa-instructions {
