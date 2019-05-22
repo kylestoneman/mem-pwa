@@ -142,9 +142,10 @@ nav {
 }
 
 #instructions {
-  position: absolute;
+  position: fixed;
+  display: block;
   text-align: center;
-  top: calc(15vw + 5.6rem);
+  top: calc(15vw + 4rem);
   left: 50%;
   transform: translateX(-50%);
   max-width: 84.5vw;
@@ -153,11 +154,12 @@ nav {
   background: #58A4B0;
   color: lighten(#58A4B0, 33);
   padding: calc(2vw + 1rem);
-  border-radius: 2vw;
+  border-radius: 5px;
   line-height: 1.618;
   font-size: 1rem;
   font-weight: 400;
   box-shadow: 0 19px 38px rgba(#373F51,0.30), 0 15px 12px rgba(#373F51,0.22);
+  z-index: 3;
 
   strong {
     color: #fff;
