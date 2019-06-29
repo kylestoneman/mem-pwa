@@ -1,13 +1,13 @@
 var cacheName = 'memcoder';
 var filesToCache = [
   '/',
-  '/css/normalize.css?1',
-  '/css/main.css?2',
-  '/index.html?2',
-  '/words.csv?1',
-  '/js/main.js?2',
-  '/js/jquery-3.2.1.min.js?1',
-  '/js/alasql.js?1'
+  '/css/normalize.css',
+  '/css/main.css',
+  '/index.html',
+  '/words.csv',
+  '/js/main.js',
+  '/js/jquery-3.2.1.min.js',
+  '/js/alasql.js'
 ];
 
 self.addEventListener('install', function(e) {
