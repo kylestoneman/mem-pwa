@@ -154,7 +154,7 @@ function addWords(target) {
   $(".remove").remove()
 
   // Log event in GA
-  tag('event', 'More');
+  gtag('event', 'More');
 }
 
 function sortList() {
@@ -184,7 +184,49 @@ function toggleSelected(e) {
   // which highlights and pins the word
 
   $(e).toggleClass('selected')
-  tag('event', 'Select', {'value' : $(e).html() });
+  gtag('event', 'Select', {'value' : $(e).html() });
+
+  // Assume we've got no overlapping words
+  $("#words li").removeClass("overlapping")
+
+  // If we've got a word selected now, hide the overlapping words
+  $("li.selected").each(function() {
+
+    // Hide words that overlap with the selected word
+    // First get the offset and lenght of our target word
+    var selectedOffset = $(this).attr("data-offset")
+    var selectedLength = $(this).attr("data-encoded")
+
+    // Then compare that with all the words currently displayed
+    for (i=0; i<selectedLength; i++) {
+
+      // A word overlaps if it *starts* within the selected word
+      var targetOffset = parseInt(selectedOffset) + i;
+      $("li.offset-"+targetOffset).addClass('overlapping')
+
+      // A word also overlaps if it *ends* within the selected word
+      // Go through all the words and hide the ones that end in the selected word
+      $("#words li").each(function() {
+
+        // Figure out the endpoint of the word we're looking at
+        var currentWordEnd = parseInt($(this).attr('data-offset')) + parseInt($(this).attr('data-encoded'))
+        
+        // If the current word starts before the selected word (i.e., its offset is lower)
+        // and it ends after the selected word begins (i.e., its `currentWordEnd`
+        // is greater than the selected word's offset) then mark it as overlapping
+        if ($(this).attr('data-offset') < selectedOffset && currentWordEnd > selectedOffset) {
+          $(this).addClass('overlapping')
+        }
+
+      })
+
+    }
+
+  // When we're all done, remove the 'overlapping' class from
+  // any of the words that are currently selected
+  }).removeClass("overlapping")
+
+
 }
 
 

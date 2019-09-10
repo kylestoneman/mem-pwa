@@ -266,7 +266,6 @@ input {
   align-items: flex-start;
 
   li {
-
     margin: 0.15rem 0;
     background: #A9BCD0;
     color: #373F51;
@@ -278,12 +277,21 @@ input {
     padding: 1vw 0 1vw 1vw;
     box-sizing: border-box;
 
+    &:hover {
+      background: lighten(#A9BCD0, 5);
+      cursor: pointer;
+    }
+
     &.selected {
       position: fixed;
       background: #58A4B0;
       color: #fff;
       margin-top: -5.6vw;
       box-shadow: 0 2vw 4vw rgba(#373F51,0.19), 0 6px 6px rgba(#373F51,0.23);
+    }
+
+    &.overlapping {
+      display: none;
     }
 
     &.more {
